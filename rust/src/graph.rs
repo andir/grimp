@@ -9,6 +9,7 @@ use rayon::prelude::*;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::fmt;
 use std::time::Instant;
+use std::sync::Arc;
 
 /// A group of layers at the same level in the layering.
 #[derive(PartialEq, Eq, Hash, Debug)]
@@ -22,7 +23,7 @@ const DELIMITER: char = '.';
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Module {
-    pub name: String,
+    pub name: Arc<String>,
 }
 
 impl fmt::Display for Module {
@@ -49,9 +50,21 @@ impl fmt::Display for ModuleNotPresent {
     }
 }
 
+impl<'py> pyo3::IntoPyObject<'py> for Module {
+    type Target = pyo3::types::PyString;
+    type Output = pyo3::Bound<'py, Self::Target>;
+    type Error = std::convert::Infallible;
+
+    #[inline]
+    fn into_pyobject(self, py: pyo3::Python<'py>) -> Result<Self::Output, Self::Error> {
+	let n = &*self.name;
+	n.into_pyobject(py)
+    }
+}
+
 impl Module {
     pub fn new(name: String) -> Module {
-        Module { name }
+        Module { name: Arc::new(name), }
     }
 
     // Returns whether the module is a root-level package.
