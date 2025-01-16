@@ -2,6 +2,18 @@
 Changelog
 =========
 
+3.5 (2024-10-08)
+----------------
+
+* Added `as_packages` option to the `find_shortest_chains` method.
+* Include 3.13 wheel in release.
+* Drop support for Python 3.8.
+
+3.4.1 (2024-07-12)
+------------------
+
+* Officially support Python 3.13.
+
 3.4 (2024-07-09)
 ----------------
 
