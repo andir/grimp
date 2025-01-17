@@ -179,7 +179,9 @@ Methods for analysing direct imports
 
 .. py:function:: ImportGraph.count_imports()
 
-    :return: The number of direct imports in the graph.
+    :return: The number of imports in the graph. For backward compatibility reasons, ``count_imports`` does not actually
+        return the number of imports, but the number of dependencies between modules.
+        So if a module is imported twice from the same module, it will only be counted once.
     :rtype: Integer.
 
 Methods for analysing import chains
@@ -226,6 +228,9 @@ Methods for analysing import chains
 
     :param str importer: A module or subpackage within the graph.
     :param str imported: Another module or subpackage within the graph.
+    :param bool as_packages: Whether or not to treat the imported and importer as an individual module,
+                            or as a package (including any descendants, if there are any). If treating them as packages, all descendants
+                            of ``importer`` and ``imported`` will be checked too. Defaults to True.
     :return: The shortest import chains that exist between the ``importer`` and ``imported``, and between any modules
              contained within them. Only one chain per upstream/downstream pair will be included. Any chains that are
              contained within other chains in the result set will be excluded.

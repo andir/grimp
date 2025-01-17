@@ -37,11 +37,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: |
-            3.8
             3.9
             3.10
             3.11
             3.12
+            3.13
+          allow-prereleases: true
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -73,11 +74,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: |
-            3.8
             3.9
             3.10
             3.11
             3.12
+            3.13
+          allow-prereleases: true
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -105,11 +107,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: |
-            3.8
             3.9
             3.10
             3.11
             3.12
+            3.13
+          allow-prereleases: true
           architecture: ${{ matrix.platform.target }}
       - name: Build wheels
         uses: PyO3/maturin-action@v1
@@ -137,11 +140,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: |
-            3.8
             3.9
             3.10
             3.11
             3.12
+            3.13
+          allow-prereleases: true
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
